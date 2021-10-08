@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Transactions;
 
 namespace Primtal
 {
@@ -7,9 +9,7 @@ namespace Primtal
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine(IsPrime(18));
-            //NextPrime(17);
-            PrintIfPrime(4);
+            Menu();
 
         }
 
@@ -41,7 +41,12 @@ namespace Primtal
             if (IsPrime(input))
             {
                 Console.WriteLine($"{input} is prime");
-                primeList.Add(input);
+
+                if (!primeList.Contains(input))
+                {
+                    primeList.Add(input);
+                }
+
                 primeList.Sort();
             }
             else
@@ -62,11 +67,65 @@ namespace Primtal
                 if (IsPrime(counter))
                 {
                     primeList.Add(counter);
-                    Console.WriteLine(counter);
                     isPrime = true;
                 }
             }
         }
+                   
+
+        public static void PrintPrimes()
+        {
+            foreach (var item in primeList)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        public static void Menu()
+        {
+            var keepGoing = true;
+            Console.WriteLine("Enter 1 to test if numbers are prime or not");
+            Console.WriteLine("Enter 2 to add the next prime");
+            Console.WriteLine("Enter 3 to show list of saved primes");
+            Console.WriteLine("Enter 0 to exit the program");
+
+            var input = Convert.ToInt32(Console.ReadLine());
+
+            while (keepGoing)
+            {
+                switch (input)
+                {
+                    case 0:
+                        keepGoing = false;
+                        break;
+
+                    case 1:
+                        Console.WriteLine("Enter numbers to check if prime");
+                        var intInput = Convert.ToInt32(Console.ReadLine());
+                        PrintIfPrime(intInput);
+                        Menu();
+                        break;
+
+                    case 2:
+                        NextPrime(primeList.LastOrDefault());
+                        Menu();
+                        break;
+
+                    case 3:
+                        PrintPrimes();
+                        Menu();
+                        break;
+
+                    default:
+                        Console.WriteLine("Wrong input, try again!");
+                        Menu();
+                        break;
+                }
+            }
+        }
+
+
+
                 
                 
                    
