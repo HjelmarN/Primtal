@@ -7,8 +7,9 @@ namespace Primtal
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(IsPrime(18));
-            NextPrime(17);
+            //Console.WriteLine(IsPrime(18));
+            //NextPrime(17);
+            PrintIfPrime(4);
 
         }
 
@@ -19,8 +20,8 @@ namespace Primtal
         {
             if (number <= 1) return false; //Exception that the loop can't handle.
             if (number == 2) return true; //Exception that the loop can't handle.
-
             var limit = Math.Sqrt(number); //Creating the loop's limit. 
+
 
             //The loop divides the input number with all numbers starting from two to the square root of the number.
             for(int i = 2; i <= limit; ++i)
@@ -32,6 +33,21 @@ namespace Primtal
             }
 
             return true; //If it is not evenly divided it is prime.
+        }
+
+        //Method informing the user if the input number is prime or not
+        public static void PrintIfPrime(int input)
+        {
+            if (IsPrime(input))
+            {
+                Console.WriteLine($"{input} is prime");
+                primeList.Add(input);
+                primeList.Sort();
+            }
+            else
+            {
+                Console.WriteLine($"{input} is not prime");
+            }
         }
 
         //Method that calculates the next prime 
