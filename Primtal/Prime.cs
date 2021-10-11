@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace Primtal
 {
-    internal class Prime
+    internal static class Prime
     {
-        private bool keepGoing = true; //Bool which I use as the condition in my while loop in the Menu method.
+        private static bool keepGoing = true; //Bool which I use as the condition in my while loop in the Menu method.
 
-        private List<int> primeList = new List<int>(); //List where the prime numbers gets added.
+        private static List<int> primeList = new List<int>(); //List where the prime numbers gets added.
 
-        public void Menu()
+        public static void Menu()
         {
             PrintMenu();
 
@@ -64,7 +64,7 @@ namespace Primtal
         }
 
         //Method that calculates if number is prime or not.
-        private bool IsPrime(int number)
+        private static bool IsPrime(int number)
         {
             if (number <= 1) return false; //Exception that the loop can't handle.
             if (number == 2) return true; //Exception that the loop can't handle.
@@ -83,7 +83,7 @@ namespace Primtal
         }
 
         //Calculates the next prime number with greater value than the greatest in the primeList.
-        private void NextPrime(int number)
+        private static void NextPrime(int number)
         {
             Console.Clear();
             var isPrime = false;
@@ -102,7 +102,7 @@ namespace Primtal
         }
 
         //Informing the user if the input number is prime or not.
-        private void PrintIfPrime()
+        private static void PrintIfPrime()
         {
             Console.Clear();
             Console.WriteLine("Enter numbers to check if prime");
@@ -139,7 +139,7 @@ namespace Primtal
         }
 
         //Prints the different menu choices to inform the user.
-        private void PrintMenu()
+        private static void PrintMenu()
         {
             Console.WriteLine("Enter 1 to test if numbers are prime or not");
             Console.WriteLine("Enter 2 to add the next prime");
@@ -148,7 +148,7 @@ namespace Primtal
         }
 
         //Prints the prime numbers stored in the primeList.
-        private void PrintPrimes()
+        private static void PrintPrimes()
         {
             Console.Clear();
             foreach (var item in primeList) //Iterates through all the elements in the primeList.

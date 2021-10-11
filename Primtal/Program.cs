@@ -1,11 +1,10 @@
 ﻿namespace Primtal
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
-            Prime prime = new Prime();
-            prime.Menu();
+            Prime.Menu(); //Calling the Menu method from the class Prime to start the program.
         }
     }
 }
