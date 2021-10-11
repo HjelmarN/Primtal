@@ -23,7 +23,7 @@ namespace Primtal
             }
             catch (OverflowException)
             {
-                Console.WriteLine("The value was too large.);
+                Console.WriteLine("The value was too large.");
                 Menu();
             }
             catch (FormatException)
