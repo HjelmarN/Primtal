@@ -8,52 +8,58 @@ namespace Primtal
     {
         private bool keepGoing = true; //Bool which I use as the condition in my while loop in the Menu method.
 
-        private List<int> primeList = new List<int>(); //List where the prime numbers gets added
+        private List<int> primeList = new List<int>(); //List where the prime numbers gets added.
 
         public void Menu()
         {
             PrintMenu();
 
             var userInput = Console.ReadLine();
+            var input = 0;
 
             try
             {
-                var input = Convert.ToInt32(userInput); //Error handling in case the user inputs something wrong.
-                while (keepGoing)
-                {
-                    switch (input)
-                    {
-                        case 0:
-                            keepGoing = false; //Stops the while loop, so the program stops. 
-                            break;
-
-                        case 1:
-                            PrintIfPrime();
-                            Menu();
-                            break;
-
-                        case 2:
-                            NextPrime(primeList.LastOrDefault()); //Uses the last prime number in the primeList as the parameter. Works because I sorted the list already.
-                            Menu();
-                            break;
-
-                        case 3:
-                            PrintPrimes();
-                            Menu();
-                            break;
-
-                        default:
-                            Console.Clear();
-                            Console.WriteLine("There is no corresponding menu choice, try again!");
-                            Menu();
-                            break;
-                    }
-                }
+                input = Convert.ToInt32(userInput); //Exception handling in case the user inputs something wrong.
             }
-            catch (Exception)
+            catch (OverflowException)
             {
-                Console.WriteLine("Wrong input");
+                Console.WriteLine("The value was too large.);
                 Menu();
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Wrong type of input, requires a number.");
+                Menu();
+            }
+            while (keepGoing)
+            {
+                switch (input)
+                {
+                    case 0:
+                        keepGoing = false; //Updates the value so the while loop stops, which stops the program.
+                        break;
+
+                    case 1:
+                        PrintIfPrime();
+                        Menu();
+                        break;
+
+                    case 2:
+                        NextPrime(primeList.LastOrDefault()); //Uses the last prime number in the primeList as the parameter.
+                        Menu();                               //Which is the highest prime number because I sorted the list already.
+                        break;
+
+                    case 3:
+                        PrintPrimes();
+                        Menu();
+                        break;
+
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("There is no corresponding menu choice, try again!");
+                        Menu();
+                        break;
+                }
             }
         }
 
@@ -76,7 +82,7 @@ namespace Primtal
             return true; //If it is not evenly divided it is prime.
         }
 
-        //Method that calculates the next prime
+        //Calculates the next prime number with greater value than the greatest in the primeList.
         private void NextPrime(int number)
         {
             Console.Clear();
@@ -95,27 +101,40 @@ namespace Primtal
             }
         }
 
-        //Informing the user if the input number is prime or not
+        //Informing the user if the input number is prime or not.
         private void PrintIfPrime()
         {
             Console.Clear();
             Console.WriteLine("Enter numbers to check if prime");
-            var input = Convert.ToInt32(Console.ReadLine());
+            var input = 0;
 
-            if (IsPrime(input)) //Using the IsPrime method to calculate if prime or not.
+            try //Error handling in case the user input something wrong. 
             {
-                Console.WriteLine($"{input} is prime");
+                input = Convert.ToInt32(Console.ReadLine());
 
-                if (!primeList.Contains(input))
+                if (IsPrime(input)) //Using the IsPrime method to calculate if prime or not.
                 {
-                    primeList.Add(input); //If the number is prime it gets added to the primeList.
-                }
+                    Console.WriteLine($"{input} is prime");
 
-                primeList.Sort(); //Sorts the primeList
+                    if (!primeList.Contains(input))
+                    {
+                        primeList.Add(input); //If the number is prime it gets added to the primeList.
+                    }
+
+                    primeList.Sort(); //Sorts the primeList
+                }
+                else
+                {
+                    Console.WriteLine($"{input} is not prime");
+                }
             }
-            else
+            catch (OverflowException)
             {
-                Console.WriteLine($"{input} is not prime");
+                Console.WriteLine("The value was too large.");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Wrong type of input, requires a number.");
             }
         }
 
