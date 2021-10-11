@@ -13,7 +13,6 @@ namespace Primtal
         public static void Menu()
         {
             PrintMenu();
-
             var userInput = Console.ReadLine();
             var input = 0;
 
@@ -108,7 +107,7 @@ namespace Primtal
             Console.WriteLine("Enter numbers to check if prime");
             var input = 0;
 
-            try //Error handling in case the user input something wrong. 
+            try //Error handling in case the user input something wrong.
             {
                 input = Convert.ToInt32(Console.ReadLine());
 
