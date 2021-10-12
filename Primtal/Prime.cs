@@ -67,6 +67,7 @@ namespace Primtal
         {
             if (number <= 1) return false; //Exception that the loop can't handle.
             if (number == 2) return true; //Exception that the loop can't handle.
+            if (number % 2 == 0) return false; //If the number is evenly divided by two, it is not a prime number.
             var limit = Math.Sqrt(number); //Creating the loop's limit.
 
             //The loop divides the input number with all numbers starting from two to the square root of the number.
